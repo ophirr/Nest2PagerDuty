@@ -9,7 +9,7 @@ try:
 except ImportError:
     from bs4 import BeautifulSoup
 
-
+# Login to gmail, yes this mechanism is insecure
 g = gmail.login(GNAME, GP)
 
 def trigger_incident():
@@ -27,12 +27,12 @@ def trigger_incident():
         "class": "Security",
         "payload": {
             "summary": extsub,
-            "source": "team20th Nest Infra",
+            "source": "Nest Camera Infra",
             "severity": "warning"
         },
         "links": [{
             "href": nest_url,
-            "text": "CLICK HERE to view the footage"
+            "text": ">>> CLICK HERE to view the footage <<<"
         }]
     }
 
