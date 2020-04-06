@@ -96,18 +96,20 @@ for number in unread:
     number.fetch()
     nest_html = number.html
 
-    if nest_html is not None:
-        soup = BeautifulSoup(nest_html, features="html.parser")
 
-        for link in soup.findAll('a', attrs={'href': re.compile("^https://home.nest.com/camera")}):
-            print link.get('href')
-            nest_url = link.get('href')
+    if number.fr == "Team20th <notifications@nest.com>":
+        if nest_html is not None:
+            soup = BeautifulSoup(nest_html, features="html.parser")
+
+            for link in soup.findAll('a', attrs={'href': re.compile("^https://home.nest.com/camera")}):
+       #     print link.get('href')
+                nest_url = link.get('href')
 
 
-        spans = soup.find_all('span')
-        for span in spans:
-            extsub = span.text
-            break
+            spans = soup.find_all('span')
+            for span in spans:
+                extsub = span.text
+                break
 
        #
 
