@@ -2,6 +2,8 @@
 import gmail
 import json
 import requests
+import re
+
 from sekret import api_key, GNAME, GP, ROUTING_KEY, INCIDENT_KEY
 
 extsub = ''
@@ -36,7 +38,7 @@ def trigger_nest_incident():
         "links": [{
             "href": nest_url,
             "text": ">>> CLICK HERE to view the footage <<<"
-        }],
+        }]
 
     }
 
@@ -97,15 +99,17 @@ for number in unread:
     if nest_html is not None:
         soup = BeautifulSoup(nest_html, features="html.parser")
 
-        soup.find('a')
-        for link in soup.find_all('a'):
-                nest_url = link.get('href')
-        break
+        for link in soup.findAll('a', attrs={'href': re.compile("^https://home.nest.com/camera")}):
+            print link.get('href')
+            nest_url = link.get('href')
+
 
         spans = soup.find_all('span')
         for span in spans:
             extsub = span.text
-        break
+            break
+
+       #
 
     # Let's check out any attachments
     #goodies = number.attachments
@@ -121,7 +125,7 @@ for number in unread:
         trigger_sar_incident()
 
  # Mark message as read
-number.read()
+    number.read()
 
 
 
