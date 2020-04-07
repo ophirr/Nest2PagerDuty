@@ -122,9 +122,9 @@ for number in unread:
         trigger_nest_incident()
 
     else:
-
-        extsub = number.body
-        trigger_sar_incident()
+        if number.subject == "[ESAR]":
+            extsub = number.body
+            trigger_sar_incident()
 
  # Mark message as read
     number.read()
