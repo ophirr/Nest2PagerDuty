@@ -88,7 +88,7 @@ if not (g.logged_in):
 else :
     print '\n' + 'logged in, yay'
 
-#unread = g.mailbox('NestAlerts').mail(unread = 'True', prefetch = 'True')
+unread = g.mailbox('NestAlerts').mail(unread = 'True', prefetch = 'True')
 unread = g.mailbox('NestAlerts').mail(unread = 'True')
 
 for number in unread:
@@ -122,7 +122,7 @@ for number in unread:
         trigger_nest_incident()
 
     else:
-        if number.subject == "[ESAR]":
+        if (number.subject == "[ESAR]") or ("King County" in number.subject):
             extsub = number.body
             trigger_sar_incident()
 
